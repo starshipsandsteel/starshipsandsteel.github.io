@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.25/"></script>
+    <script>
+      require([
+	"esri/config", 
+	"esri/Map", 
+	"esri/views/MapView",
+    	"esri/layers/FeatureLayer",
+      	"esri/widgets/Editor"
+	
+	], function(esriConfig, Map, MapView, FeatureLayer, Editor) {
+
+	const mylayer = new FeatureLayer({
+ 		url: "https://services.arcgis.com/xYjDUN35YwdCEcMm/arcgis/rest/services/my_polygons/FeatureServer/0"
+	});	
+     	esriConfig.apiKey = "AAPK759455b6c45944d296ef27cf786c313eUz1tuCNFSryURln3vE2ISz9opbWFwVusiUS9Ov3udKnGx0Qe0l3V8uy2TWnD_my-"
+
+      	const map = new Map({
+        	basemap: "arcgis-topographic", // Basemap layer service
+		layers: [mylayer]
+      	});  
+        const view = new MapView({
+          map: map,
+          center: [-118.805, 34.027], // Longitude, latitude
+          zoom: 13, // Zoom level
+          container: "viewDiv" // Div element
+        });
+        // Editor widget
+    	const editor = new Editor({
+        	view: view
+        });
+        // Add widget to the view
+  	 view.ui.add(editor, "top-right");
+
+	});
+    </script>
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
